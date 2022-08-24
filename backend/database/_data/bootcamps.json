@@ -1,0 +1,29 @@
+[
+    {
+        "name": "PHP Xtrem Programing bootcamp",
+        "description": "PHP for begineers",
+        "website": "laravel.org/bootcamps",
+        "phone": "(111)-1111111",
+        "user_id": 1,
+        "average_rating": 4.5,
+        "average_cost": 2000
+    },
+    {
+        "name": "Python Xtrem Programing bootcamp",
+        "description": "Python for begineers",
+        "website": "Python.org/bootcamps",
+        "phone": "(222)-2222222",
+        "user_id": 1,
+        "average_rating": 4.5,
+        "average_cost": 8000 
+    },
+    {
+        "name": "Ruby Xtrem Programing bootcamp",
+        "description": "Ruby for begineers",
+        "website": "ruby.org/bootcamps",
+        "phone": "(333)-3333333",
+        "user_id": 1,
+        "average_rating": 4.5,
+        "average_cost": 2000
+    }
+]
