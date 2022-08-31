@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "20d7627d-c125-4d99-8195-0ae9dd9b4fec",
-		"name": "campamento software",
+		"_postman_id": "c04bb99b-6436-4c81-867b-f08c82ce981b",
+		"name": "campamento software Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -31,7 +31,46 @@
 					"name": "Crear nuevo bootcamp",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n        \"name\": \"Ruby Intermediate level\",\r\n        \"description\": \"asdasdasdasdasd \",\r\n        \"website\": \"ruby.com\",\r\n        \"phone\": \"(333)-171717\",\r\n        \"user_id\": 1,\r\n        \"avg_rating\": 0,\r\n        \"avg_cost\": 1\r\n    }"
+						},
+						"url": {
+							"raw": "localhost:8000/api/bootcamps",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bootcamps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear nuevo bootcamp con errores de validación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n        \"name\": \"ala\",\r\n        \"description\": \"Scrum\",\r\n        \"website\": \"scrum.org/bootcamps\",\r\n        \"phone\": \"(444)-4444444\",\r\n        \"user_id\": 2,\r\n        \"average_rating\": 4.5,\r\n        \"average_cost\": 600\r\n    }"
+						},
 						"url": {
 							"raw": "localhost:8000/api/bootcamps",
 							"host": [
@@ -52,7 +91,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8000/api/bootcamps/6",
+							"raw": "localhost:8000/api/bootcamps/3",
 							"host": [
 								"localhost"
 							],
@@ -60,7 +99,7 @@
 							"path": [
 								"api",
 								"bootcamps",
-								"6"
+								"3"
 							]
 						}
 					},
@@ -70,9 +109,19 @@
 					"name": "Actualizar bootcamp por Id",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"description\": \"jasjdlksamdlksamdla\"\r\n}"
+						},
 						"url": {
-							"raw": "localhost:8000/api/bootcamps/6",
+							"raw": "localhost:8000/api/bootcamps/5",
 							"host": [
 								"localhost"
 							],
@@ -80,7 +129,7 @@
 							"path": [
 								"api",
 								"bootcamps",
-								"6"
+								"5"
 							]
 						}
 					},
@@ -90,9 +139,19 @@
 					"name": "Eliminar bootcamp por Id",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "localhost:8000/api/bootcamps/6",
+							"raw": "localhost:8000/api/bootcamps/1",
 							"host": [
 								"localhost"
 							],
@@ -100,7 +159,7 @@
 							"path": [
 								"api",
 								"bootcamps",
-								"6"
+								"1"
 							]
 						}
 					},
@@ -110,7 +169,39 @@
 		},
 		{
 			"name": "courses",
-			"item": []
+			"item": [
+				{
+					"name": "crear curso para bootcamp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Python data structures\",\r\n    \"descripcion\" : \"you'll see dictionary and arrays\",\r\n    \"weeks\" : 4,\r\n    \"enroll_cost\" : 5000,\r\n    \"minimum_skill\" : \"Beginner\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/api/courses/2/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"courses",
+								"2",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "reviews",
@@ -161,7 +252,10 @@
 					"name": "seleccion de bootcamp por id",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -246,7 +340,10 @@
 			"name": "New Request",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -254,7 +351,10 @@
 			"name": "prueba",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
