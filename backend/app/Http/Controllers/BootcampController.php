@@ -7,8 +7,9 @@ use App\Models\Bootcamp;
 use App\Http\Requests\StoreBootcampRequest;
 use App\Http\Resources\BootcampCollection;
 use App\Http\Resources\BootcampResource;
+use App\Http\Controllers\BaseController;
 
-class BootcampController extends Controller
+class BootcampController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +22,15 @@ class BootcampController extends Controller
     // 1: data que va enviar al cliente
     //2. codigo de estatus http
     {
-        return response()->json(  new BootcampCollection(Bootcamp::all()), 200);
+        //return response()->json(
+
+            try{
+                return $this->sendResponse(new BootcampCollection(Bootcamp::all()));
+            }catch(\Exception $e){
+                return $this->sendErrors('Server Error' , 500);
+
+            }
+            
     }
 
     /**
@@ -32,10 +41,13 @@ class BootcampController extends Controller
      */
     public function store(StoreBootcampRequest $request)
     {
+        try {
+            return $this->sendResponse(new BootcampResource(Bootcamp::create($request->all())) , 201);
+        } catch (\Exception $th) {
 
-        return response()->json(["success" => true,
-                                 "data" => new BootcampResource(Bootcamp::create($request->all()))] , 201);
-
+              return $this->sendErrors('Server Error' , 500);
+           
+        }
     }
 
     /**
@@ -46,9 +58,20 @@ class BootcampController extends Controller
      */
     public function show($id)
     {
-        return response()->json(["succes" => true,
-                                  "data" => new BootcampResource(Bootcamp::find($id))] ,200);
+        try {
+           //1. encontrar el bootcamp por id
+        $bootcamp = Bootcamp::find($id);
+        //2. en caso de que el bootcamp no exista 
+        if (!$bootcamp) {
+         return $this->sendErrors("bootcamp con id:$id no encontrado", 400);
+        }
+        return $this->sendResponse(new BootcampResource($bootcamp));
+    }catch(\Exception $e){
+        return $this->sendErrors('Server Error' , 500);
+
     }
+}
+    
 
     /**
      * Update the specified resource in storage.
@@ -59,13 +82,19 @@ class BootcampController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //1. localizar el bootcamp con el id
-        $b = Bootcamp::find($id);
-        //2. actualizarlo con update
+        try {
+            $b = Bootcamp::find($id);
+            if (!$b) {
+                return $this->sendErrors("bootcamp con id:$id no encontrado", 400);
+               }
+                  //2. actualizarlo con update
         $b -> update($request->all());
-        return response()->json(["succes" => true,
-        "data" => new BootcampResource($b) ] ,200);
+        return $this->sendResponse(new BootcampResource($b));
+        } catch (\Exception $e) {
+            return $this->sendErrors('Server Error' , 500);
+        }
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -75,10 +104,16 @@ class BootcampController extends Controller
      */
     public function destroy($id)
     {
-        $b = Bootcamp::find($id);
-        //2. borrarlo con delete
-        $b -> delete($id);
-        return response()->json(["succes" => true,
-        "data" => new BootcampResource ($b) ] ,200);
-    }
+        try {
+            $b = Bootcamp::find($id);
+        if (!$b) {
+            return $this->sendErrors("bootcamp con id:$id no encontrado", 400);
+           }
+        $b -> delete();
+        return $this->sendResponse(new BootcampResource($b));
+        } catch (\Exception $e){
+            return $this->sendErrors('Server Error' , 500);
+        }
+ 
+}
 }

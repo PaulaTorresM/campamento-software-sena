@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\Course;
-
+use App\Http\Resources\CourseCollection;
+use App\Http\Resources\CourseResource;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class CourseController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,15 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        //return response()->json(
+
+            try{
+                return $this->sendResponse(new CourseCollection(Course::all()));
+            }catch(\Exception $e){
+                return $this->sendErrors('Server Error' , 500);
+
+            }
+            
     }
 
     /**
@@ -46,8 +56,19 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+           //1. encontrar el bootcamp por id
+        $course = Course::find($id);
+        //2. en caso de que el bootcamp no exista 
+        if (!$course) {
+         return $this->sendErrors("curso con id:$id no encontrado", 400);
+        }
+        return $this->sendResponse(new CourseResource($course));
+    }catch(\Exception $e){
+        return $this->sendErrors('Server Error' , 500);
+
     }
+}
 
     /**
      * Update the specified resource in storage.
@@ -58,9 +79,18 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $c = Course::find($id);
+            if (!$c) {
+                return $this->sendErrors("curso con id:$id no encontrado", 400);
+               }
+                  //2. actualizarlo con update
+        $c -> update($request->all());
+        return $this->sendResponse(new CourseResource($c));
+        } catch (\Exception $e) {
+            return $this->sendErrors('Server Error' , 500);
+        }
     }
-
     /**
      * Remove the specified resource from storage.
      *

@@ -3,9 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use App\Models\Bootcamp;
+use App\Models\Course;
 
-class BootcampCollection extends ResourceCollection
+
+class CourseCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
